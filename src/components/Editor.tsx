@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { 
-  ArrowLeft, Save, Link as LinkIcon, Globe, Plus, Wand2 
+  ArrowLeft, Save, Link as LinkIcon, Globe, Plus, Wand2, Copy, ExternalLink
 } from 'lucide-react';
 import PhoneMockup from './PhoneMockup';
 import LinkItem from './LinkItem';
@@ -22,6 +22,11 @@ import { toast } from 'sonner';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import AppHeader from './AppHeader';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const Editor: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,6 +43,7 @@ const Editor: React.FC = () => {
   });
   const [isPublishing, setIsPublishing] = useState(false);
   const [autoSaveTimer, setAutoSaveTimer] = useState<NodeJS.Timeout | null>(null);
+  const [showUrlPopover, setShowUrlPopover] = useState(false);
 
   // Load profile data or initialize a new one
   useEffect(() => {
@@ -131,6 +137,12 @@ const Editor: React.FC = () => {
     toast.success('Demo data loaded');
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success('URL copied to clipboard');
+    setShowUrlPopover(false);
+  };
+
   const handlePublish = async () => {
     if (!profile.name) {
       toast.error('Please add a name before publishing');
@@ -151,6 +163,7 @@ const Editor: React.FC = () => {
         publishedUrl
       });
       
+      setShowUrlPopover(true);
       toast.success('Your page has been published!');
     } catch (error) {
       console.error('Error publishing:', error);
@@ -167,7 +180,7 @@ const Editor: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader profile={profile} />
+      <AppHeader />
       
       <header className="border-b sticky top-14 bg-background/80 backdrop-blur-sm z-10">
         <div className="container flex items-center justify-between h-16 px-4">
@@ -191,14 +204,57 @@ const Editor: React.FC = () => {
               <Wand2 size={16} /> Demo Data
             </Button>
             
-            <Button 
-              onClick={handlePublish}
-              disabled={isPublishing}
-              className="gap-1"
-            >
-              <Globe size={16} /> 
-              {isPublishing ? 'Publishing...' : 'Publish'}
-            </Button>
+            {profile.publishedUrl ? (
+              <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
+                <PopoverTrigger asChild>
+                  <Button className="gap-1">
+                    <Copy size={16} /> Copy Link
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="space-y-2">
+                    <h3 className="font-medium">Your published URL</h3>
+                    <div className="flex items-center gap-2">
+                      <Input value={profile.publishedUrl} readOnly />
+                      <Button 
+                        size="icon" 
+                        variant="outline"
+                        onClick={() => copyToClipboard(profile.publishedUrl || '')}
+                      >
+                        <Copy size={16} />
+                      </Button>
+                    </div>
+                    <div className="flex justify-between pt-2">
+                      <a
+                        href={profile.publishedUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-primary flex items-center gap-1"
+                      >
+                        <ExternalLink size={12} /> Open in new tab
+                      </a>
+                      <Button 
+                        variant="link" 
+                        size="sm" 
+                        className="h-auto p-0"
+                        onClick={() => setShowUrlPopover(false)}
+                      >
+                        Close
+                      </Button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Button 
+                onClick={handlePublish}
+                disabled={isPublishing}
+                className="gap-1"
+              >
+                <Globe size={16} /> 
+                {isPublishing ? 'Publishing...' : 'Publish'}
+              </Button>
+            )}
           </div>
         </div>
       </header>

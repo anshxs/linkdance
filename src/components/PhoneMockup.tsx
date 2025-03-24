@@ -27,7 +27,7 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url }) => {
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="social-icon bg-white/10 hover:bg-white/20"
+      className="social-icon bg-white/70 hover:bg-white/90 text-black"
     >
       <i className={iconClass}></i>
     </a>
@@ -48,7 +48,7 @@ const LinkItem: React.FC<LinkItemProps> = ({ label, url, icon }) => {
       href={url} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="mb-3 bg-white/10 hover:bg-white/20 link-card"
+      className="mb-3 bg-white/30 hover:bg-white/50 link-card"
     >
       {icon && <i className={`${iconClass} mr-2`}></i>}
       <span>{label}</span>

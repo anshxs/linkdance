@@ -25,13 +25,13 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url }) => {
 
   const iconClass = iconMap[platform] || 'ri-link';
 
-  // Improved contrast with background color
+  // Changed to use darker background color with black icon for better visibility
   return (
     <a 
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 text-primary-foreground transition-all duration-300 hover:scale-110"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 hover:bg-white/90 text-black transition-all duration-300 hover:scale-110"
     >
       <i className={`${iconClass} text-xl`}></i>
     </a>
@@ -52,7 +52,7 @@ const LinkItem: React.FC<LinkItemProps> = ({ label, url, icon }) => {
       href={url} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="flex items-center p-3 rounded-lg bg-primary/10 hover:bg-primary/20 text-foreground transition-all duration-300 hover:-translate-y-1 mb-3 w-full max-w-md mx-auto"
+      className="flex items-center p-3 rounded-lg bg-white/30 hover:bg-white/50 text-foreground transition-all duration-300 hover:-translate-y-1 mb-3 w-full max-w-md mx-auto"
     >
       {icon && <i className={`${iconClass} mr-2 text-lg`}></i>}
       <span>{label}</span>

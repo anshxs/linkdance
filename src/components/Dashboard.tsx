@@ -121,11 +121,9 @@ const Dashboard: React.FC = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    asChild
+                    onClick={() => window.open(profile.publishedUrl, '_blank')}
                   >
-                    <a href={profile.publishedUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink size={16} className="mr-1" /> View
-                    </a>
+                    <ExternalLink size={16} className="mr-1" /> View
                   </Button>
                 )}
               </CardFooter>

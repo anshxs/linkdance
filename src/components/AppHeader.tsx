@@ -2,8 +2,8 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Eye, Globe } from 'lucide-react';
-import { ProfileData, getProfileById } from '@/utils/storage';
+import { Globe } from 'lucide-react';
+import { ProfileData } from '@/utils/storage';
 
 interface AppHeaderProps {
   profile?: ProfileData;
@@ -15,12 +15,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({ profile }) => {
   
   const handleDashboardClick = () => {
     navigate('/dashboard');
-  };
-  
-  const handleViewClick = () => {
-    if (profile?.publishedUrl) {
-      window.open(profile.publishedUrl, '_blank');
-    }
   };
   
   return (
@@ -36,17 +30,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({ profile }) => {
         </div>
         
         <div className="flex items-center gap-2">
-          {location.pathname.includes('/edit') && profile?.publishedUrl && (
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="gap-1"
-              onClick={handleViewClick}
-            >
-              <Eye size={16} /> View
-            </Button>
-          )}
-          
           {location.pathname.includes('/edit') && !profile?.publishedUrl && (
             <Button
               size="sm"

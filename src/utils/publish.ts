@@ -44,7 +44,6 @@ export const generatePublishUrl = async (profile: ProfileData): Promise<string> 
     return data.result_url;
   } catch (error) {
     console.error('Error generating short URL:', error);
-    // Fallback to the long URL if shortening fails
-    return longUrl;
+    throw error; // Let the caller handle the error
   }
 };
