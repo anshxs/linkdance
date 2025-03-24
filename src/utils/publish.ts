@@ -24,14 +24,27 @@ export const decodeProfileData = (encodedData: string): ProfileData | null => {
 export const generatePublishUrl = async (profile: ProfileData): Promise<string> => {
   const encoded = encodeProfileData(profile);
   const baseUrl = window.location.origin;
-  const viewUrl = `${baseUrl}/view?data=${encoded}`;
+  const longUrl = `${baseUrl}/view?data=${encoded}`;
   
   try {
-    // For simplicity, we're not actually calling an API here
-    // In a real implementation, you would send to a URL shortening service
-    return viewUrl;
+    // Call the CleanURI API to get a shortened URL
+    const response = await fetch('https://cleanuri.com/api/v1/shorten', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `url=${encodeURIComponent(longUrl)}`,
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to shorten URL');
+    }
+    
+    const data = await response.json();
+    return data.result_url;
   } catch (error) {
     console.error('Error generating short URL:', error);
-    return viewUrl;
+    // Fallback to the long URL if shortening fails
+    return longUrl;
   }
 };

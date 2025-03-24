@@ -21,6 +21,7 @@ import SocialLinks from './SocialLinks';
 import { toast } from 'sonner';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
+import AppHeader from './AppHeader';
 
 const Editor: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -166,7 +167,9 @@ const Editor: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+      <AppHeader profile={profile} />
+      
+      <header className="border-b sticky top-14 bg-background/80 backdrop-blur-sm z-10">
         <div className="container flex items-center justify-between h-16 px-4">
           <div className="flex items-center gap-2">
             <Button 

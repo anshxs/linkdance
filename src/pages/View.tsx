@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ProfileData } from '@/utils/storage';
 import { decodeProfileData } from '@/utils/publish';
+import AppHeader from '@/components/AppHeader';
 
 interface SocialIconProps {
   platform: string;
@@ -24,12 +25,13 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url }) => {
 
   const iconClass = iconMap[platform] || 'ri-link';
 
+  // Improved contrast with background color
   return (
     <a 
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300 hover:scale-110"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-primary/20 hover:bg-primary/30 text-primary-foreground transition-all duration-300 hover:scale-110"
     >
       <i className={`${iconClass} text-xl`}></i>
     </a>
@@ -50,7 +52,7 @@ const LinkItem: React.FC<LinkItemProps> = ({ label, url, icon }) => {
       href={url} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="flex items-center p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1 mb-3 w-full max-w-md mx-auto"
+      className="flex items-center p-3 rounded-lg bg-primary/10 hover:bg-primary/20 text-foreground transition-all duration-300 hover:-translate-y-1 mb-3 w-full max-w-md mx-auto"
     >
       {icon && <i className={`${iconClass} mr-2 text-lg`}></i>}
       <span>{label}</span>
@@ -123,59 +125,61 @@ const View: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/20 to-primary/5 flex flex-col items-center py-10 px-4">
-      <div className="w-full max-w-xl animate-fade-in">
-        <div className="flex flex-col items-center mt-8">
-          {profile.photoUrl && (
-            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 animate-scale-in">
-              <img 
-                src={profile.photoUrl} 
-                alt={profile.name} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-          
-          <h1 className="text-3xl font-bold text-center mt-2 animate-scale-in" style={{ animationDelay: '0.1s' }}>
-            {profile.name}
-          </h1>
-          
-          {profile.description && (
-            <p className="text-muted-foreground text-center mt-3 mb-8 max-w-md animate-scale-in" style={{ animationDelay: '0.2s' }}>
-              {profile.description}
-            </p>
-          )}
-          
-          {profile.socialLinks && profile.socialLinks.length > 0 && (
-            <div className="flex justify-center gap-3 mb-8 flex-wrap animate-scale-in" style={{ animationDelay: '0.3s' }}>
-              {profile.socialLinks.map((social, index) => (
-                <SocialIcon 
-                  key={index} 
-                  platform={social.platform} 
-                  url={social.url} 
-                />
-              ))}
-            </div>
-          )}
-          
-          <div className="w-full space-y-3">
-            {profile.links.map((link, index) => (
-              <div key={link.id} className="animate-scale-in" style={{ animationDelay: `${0.4 + index * 0.1}s` }}>
-                <LinkItem 
-                  label={link.label} 
-                  url={link.url} 
-                  icon={link.icon}
+    <>
+      <div className="min-h-screen bg-gradient-to-b from-primary/20 to-primary/5 flex flex-col items-center py-10 px-4">
+        <div className="w-full max-w-xl animate-fade-in">
+          <div className="flex flex-col items-center mt-8">
+            {profile.photoUrl && (
+              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 animate-scale-in">
+                <img 
+                  src={profile.photoUrl} 
+                  alt={profile.name} 
+                  className="w-full h-full object-cover"
                 />
               </div>
-            ))}
+            )}
+            
+            <h1 className="text-3xl font-bold text-center mt-2 animate-scale-in" style={{ animationDelay: '0.1s' }}>
+              {profile.name}
+            </h1>
+            
+            {profile.description && (
+              <p className="text-muted-foreground text-center mt-3 mb-8 max-w-md animate-scale-in" style={{ animationDelay: '0.2s' }}>
+                {profile.description}
+              </p>
+            )}
+            
+            {profile.socialLinks && profile.socialLinks.length > 0 && (
+              <div className="flex justify-center gap-3 mb-8 flex-wrap animate-scale-in" style={{ animationDelay: '0.3s' }}>
+                {profile.socialLinks.map((social, index) => (
+                  <SocialIcon 
+                    key={index} 
+                    platform={social.platform} 
+                    url={social.url} 
+                  />
+                ))}
+              </div>
+            )}
+            
+            <div className="w-full space-y-3">
+              {profile.links.map((link, index) => (
+                <div key={link.id} className="animate-scale-in" style={{ animationDelay: `${0.4 + index * 0.1}s` }}>
+                  <LinkItem 
+                    label={link.label} 
+                    url={link.url} 
+                    icon={link.icon}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+        
+        <footer className="mt-auto pt-8 text-center text-xs text-muted-foreground animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <p>Created with LinkDance</p>
+        </footer>
       </div>
-      
-      <footer className="mt-auto pt-8 text-center text-xs text-muted-foreground animate-fade-in" style={{ animationDelay: '0.8s' }}>
-        <p>Created with LinkDance</p>
-      </footer>
-    </div>
+    </>
   );
 };
 

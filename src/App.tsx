@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./components/Dashboard";
 import Editor from "./components/Editor";
 import View from "./pages/View";
+import AppHeader from "./components/AppHeader";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={
+            <>
+              <AppHeader />
+              <Dashboard />
+            </>
+          } />
           <Route path="/edit/:id" element={<Editor />} />
           <Route path="/view" element={<View />} />
           <Route path="*" element={<NotFound />} />
