@@ -1,10 +1,16 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+  
+  const handleGetStarted = () => {
+    navigate('/dashboard');
+  };
+  
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-background to-secondary">
       <div className="max-w-4xl w-full text-center space-y-8 animate-fade-in">
@@ -19,12 +25,14 @@ const Home: React.FC = () => {
         </p>
         
         <div className="pt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-          <Link to="/dashboard">
-            <Button size="lg" className="rounded-full px-8 py-6 text-lg group">
-              Get Started 
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
+          <Button 
+            size="lg" 
+            className="rounded-full px-8 py-6 text-lg group"
+            onClick={handleGetStarted}
+          >
+            Get Started 
+            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </Button>
         </div>
       </div>
       
