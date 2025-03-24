@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { 
@@ -22,6 +21,7 @@ import { toast } from 'sonner';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import AppHeader from './AppHeader';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Popover,
   PopoverContent,
@@ -31,6 +31,7 @@ import {
 const Editor: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [profile, setProfile] = useState<ProfileData>({
     id: id || '',
     name: '',
@@ -44,8 +45,8 @@ const Editor: React.FC = () => {
   const [isPublishing, setIsPublishing] = useState(false);
   const [autoSaveTimer, setAutoSaveTimer] = useState<NodeJS.Timeout | null>(null);
   const [showUrlPopover, setShowUrlPopover] = useState(false);
+  const [showMobilePreview, setShowMobilePreview] = useState(false);
 
-  // Load profile data or initialize a new one
   useEffect(() => {
     if (id) {
       const existingProfile = getProfileById(id);
@@ -55,7 +56,6 @@ const Editor: React.FC = () => {
     }
   }, [id]);
 
-  // Auto-save after a timeout when profile changes
   const debouncedSave = useCallback(() => {
     if (autoSaveTimer) {
       clearTimeout(autoSaveTimer);
@@ -69,7 +69,6 @@ const Editor: React.FC = () => {
     setAutoSaveTimer(timer);
   }, [profile, autoSaveTimer]);
 
-  // Watch for changes to trigger auto-save
   useEffect(() => {
     if (profile.name || profile.links.length > 0) {
       debouncedSave();
@@ -196,6 +195,16 @@ const Editor: React.FC = () => {
           </div>
           
           <div className="flex items-center gap-2">
+            {isMobile && (
+              <Button
+                variant="outline"
+                onClick={() => setShowMobilePreview(!showMobilePreview)}
+                className="gap-1"
+              >
+                {showMobilePreview ? 'Hide Preview' : 'Show Preview'}
+              </Button>
+            )}
+            
             <Button 
               variant="outline" 
               onClick={handleLoadDemo}
@@ -258,6 +267,14 @@ const Editor: React.FC = () => {
           </div>
         </div>
       </header>
+      
+      {isMobile && showMobilePreview && (
+        <div className="p-4 border-b bg-muted/30">
+          <div className="flex justify-center">
+            <PhoneMockup profile={profile} />
+          </div>
+        </div>
+      )}
       
       <main className="container px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

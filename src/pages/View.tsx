@@ -25,13 +25,13 @@ const SocialIcon: React.FC<SocialIconProps> = ({ platform, url }) => {
 
   const iconClass = iconMap[platform] || 'ri-link';
 
-  // Changed to use darker background color with black icon for better visibility
+  // Using darker background with black text for better visibility
   return (
     <a 
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-white/70 hover:bg-white/90 text-black transition-all duration-300 hover:scale-110"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-white/80 hover:bg-white text-black transition-all duration-300 hover:scale-110 shadow-sm"
     >
       <i className={`${iconClass} text-xl`}></i>
     </a>
@@ -52,7 +52,7 @@ const LinkItem: React.FC<LinkItemProps> = ({ label, url, icon }) => {
       href={url} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="flex items-center p-3 rounded-lg bg-white/30 hover:bg-white/50 text-foreground transition-all duration-300 hover:-translate-y-1 mb-3 w-full max-w-md mx-auto"
+      className="flex items-center p-3 rounded-lg bg-white/40 hover:bg-white/60 text-foreground transition-all duration-300 hover:-translate-y-1 mb-3 w-full max-w-md mx-auto shadow-sm"
     >
       {icon && <i className={`${iconClass} mr-2 text-lg`}></i>}
       <span>{label}</span>
@@ -130,7 +130,7 @@ const View: React.FC = () => {
         <div className="w-full max-w-xl animate-fade-in">
           <div className="flex flex-col items-center mt-8">
             {profile.photoUrl && (
-              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 animate-scale-in">
+              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-4 animate-scale-in shadow-md">
                 <img 
                   src={profile.photoUrl} 
                   alt={profile.name} 

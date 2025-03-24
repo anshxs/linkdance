@@ -92,7 +92,18 @@
   }
   
   .phone-mockup {
-    @apply relative rounded-[40px] border-[14px] border-black bg-white shadow-xl w-[272px] h-[572px] overflow-hidden;
+    @apply relative rounded-[40px] border-[14px] border-black bg-white shadow-xl overflow-hidden;
+    width: 272px;
+    height: 572px;
+    max-width: 100%;
+    max-height: 80vh;
+  }
+  
+  @media (max-width: 640px) {
+    .phone-mockup {
+      width: 240px;
+      height: 504px;
+    }
   }
   
   .phone-mockup:before {
