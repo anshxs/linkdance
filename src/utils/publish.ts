@@ -27,30 +27,18 @@ export const generatePublishUrl = async (profile: ProfileData): Promise<string> 
   const longUrl = `${baseUrl}/view?data=${encoded}`;
   
   try {
-    // Create a simple serverless API route using Netlify, Vercel, or similar service
-    // For now, we're using a CORS proxy to demonstrate the concept
-    const corsProxyUrl = 'https://corsproxy.io/';
-    const targetUrl = 'https://cleanuri.com/api/v1/shorten';
-    
-    const response = await fetch(`${corsProxyUrl}?${targetUrl}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `url=${encodeURIComponent(longUrl)}`,
+    // Using TinyURL API which is more lenient with CORS
+    const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`, {
+      method: 'GET',
     });
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const data = await response.json();
-    if (data.result_url) {
-      return data.result_url;
-    } else {
-      console.warn('Short URL not returned, using long URL as fallback');
-      return longUrl;
-    }
+    // TinyURL returns the shortened URL directly as text
+    const shortUrl = await response.text();
+    return shortUrl || longUrl;
   } catch (error) {
     console.error('Error generating short URL:', error);
     // Return the long URL as fallback
