@@ -1,69 +1,55 @@
-# Welcome to your Lovable project
+# LinkDance  
 
-## Project info
+LinkDance is an open-source **Linktree alternative** that allows users to create and share personalized link pages **without signing up or authentication**. All data is stored **locally** and encoded into a **Base64 URL**, which is then shortened using the **TinyURL API** for easy sharing.  
 
-**URL**: https://lovable.dev/projects/95fdaca7-b848-4dc6-b979-2276e97be71a
+![Onboarding UI](https://github.com/user-attachments/assets/a788ac4b-ded1-4769-a941-d453489d8acf)  
 
-## How can I edit this code?
+## 🚀 Live Demo  
 
-There are several ways of editing your application.
+<a href="https://linkdance.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge" alt="Live Demo">
+</a>
 
-**Use Lovable**
+## 🚀 Features  
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/95fdaca7-b848-4dc6-b979-2276e97be71a) and start prompting.
+- [x] **No Sign-Up Required** – Just create and share your link instantly.  
+- [x] **Local Storage** – Your data stays on your device. No servers, no tracking.  
+- [x] **Clean & Beautiful UI** – Simple yet elegant design.  
+- [x] **Base64 Encoded Links** – All link data is stored within the generated URL.  
+- [x] **TinyURL Shortening** – Shareable, compact links with **TinyURL API**.  
+- [x] **Instant Sharing** – Copy your unique link and share it anywhere.  
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🎯 How It Works  
 
-**Use your preferred IDE**
+1. **Create Your Page** – Add your links, profile details, and customize the look.  
+2. **Generate Link** – The page data is converted to **Base64** and embedded in a URL.  
+3. **Shorten with TinyURL** – The long URL is shortened using the **TinyURL API**.  
+4. **Share It** – Copy the final link and share it with your audience!  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Installation  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Clone the repository and open it in your browser:  
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+git clone https://github.com/anshxs/linkdance.git
+cd linkdance
+npm install 
+npm run dev  
 ```
 
-**Edit a file directly in GitHub**
+## 🔗 Example Link (Generated)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+[https://tinyurl.com/28mqelco](https://tinyurl.com/28mqelco) → Decodes to your LinkDance page!
 
-**Use GitHub Codespaces**
+## 🤝 Contributing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Feel free to submit issues, feature requests, or PRs! Let's make LinkDance even better.
 
-## What technologies are used for this project?
+## 📜 License  
 
-This project is built with .
+This project is licensed under the **Creative Commons Attribution 4.0 International License**.  
+You are free to **use, modify, earn and share** this project **for any purpose** as long as you **credit the original author(me)**.  
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/95fdaca7-b848-4dc6-b979-2276e97be71a) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+⭐ Star this repo if you like it! 🚀
